@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -21,7 +23,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class WebCrawler {
+public class project2WebCrawler {
 	int maxCrawls = 0, crawlCounter = 0;
 	String domain = "", webUrl;
 	ArrayList<String> indexedWebsites = new ArrayList<String>(), bannedDirectories = new ArrayList<String>();
@@ -49,6 +51,7 @@ public class WebCrawler {
 	}
 	
 	private void crawlSites() {
+		Pattern pattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/[a-z]{3}\\/[a-z]{3}\\/\\d*\\.html$");
 		while(!sitesToCrawl.isEmpty() && crawlCounter < maxCrawls) {			
 			webUrl = sitesToCrawl.element();
 			sitesToCrawl.remove();
@@ -106,7 +109,7 @@ public class WebCrawler {
 			for(int j = 0; j < hrefList.size(); j++) {
 				Element elt = hrefList.get(j);
 				String outlink = elt.attr("abs:href");
-				
+
 				if(outlink.length() == 0)
 					continue;
 				
@@ -121,7 +124,13 @@ public class WebCrawler {
 				if(robotFlag == true)
 					continue;
 				// It's okay if we add duplicates to this list b/c we'll be checking if we crawled the site yet at the beginning of the first for loop
-				sitesToCrawl.add(outlink);
+				
+				Matcher matcher = pattern.matcher(outlink);
+				if(matcher.find()) { // individual housing page
+					sitesToCrawl.add(outlink);
+					System.out.println(outlink);
+				}
+				
 //				System.out.println(outlink);
 			}
 		
@@ -178,7 +187,7 @@ public class WebCrawler {
 	}
 	
 	public static void main(String[] args) {
-		WebCrawler wb = new WebCrawler();
+		project2WebCrawler wb = new project2WebCrawler();
 		wb.start();
 	}
 }
