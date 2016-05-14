@@ -14,6 +14,9 @@
     <!-- Angular --> 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 
+    <!-- main js --> 
+    <script src="main.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -39,24 +42,24 @@
       </div>
       <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
-          <div class="arrow top right"></div>
+          <div class="arrow uparrow right"></div>
           <div class="facets-bubble panel panel-default">
             <div class ="row">
               <h3>Housing Types</h3>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="room-shares"> <i class="em 
-                em-house"> </i> <i class= "em em-couple"></i></label>
+                <label><input type="checkbox" name="room-shares"> <span  data-toggle="tooltip" data-placement="top" title="Rooms &amp; Shares" > <i class="em 
+                em-house"> </i> <i class= "em em-couple"></i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="apts-housing"><i class="em 
-                em-house_with_garden"> </i></label>
+                <label><input type="checkbox" name="apts-housing"><span data-toggle="tooltip" data-placement="top" title="Apt/Housing for Rent"> <i class="em 
+                em-house_with_garden"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="sublets"><i class="em 
-                em-house"></i> <i class="em em-alarm_clock"> </i> </label>
+                <label><input type="checkbox" name="sublets"> <span  data-toggle="tooltip" data-placement="top" title="Sublets and Temporary"> <i class="em 
+                em-house"></i> <i class="em em-alarm_clock"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="vacation-rentals"><i class="em 
+                <label><input type="checkbox" name="vacation-rentals"> <span  data-toggle="tooltip" data-placement="top" title="Vacation Rental">  <i class="em 
                 em-house"> </i> <i class="em em-palm_tree"> </i></label>
               </div>
             </div>
@@ -64,76 +67,74 @@
             <div class ="row">
               <h3>Amenities</h3>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="dogs"> <i class="em 
-                em-dog"> </i> </label>
+                <label><input type="checkbox" name="dogs"><span data-toggle="tooltip" data-placement="top" title="Dogs Allowed"> <i class="em 
+                em-dog"> </i> </span></label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="cats"> <i class="em 
-                em-cat"> </i></label>
+                <label><input type="checkbox" name="cats"><span data-toggle="tooltip" data-placement="top" title="Cats Allowed"> <i class="em 
+                em-cat"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="no-smoking"><i class="em 
-                em-no_smoking"> </i></label>
+                <label><input type="checkbox" name="no-smoking"><span data-toggle="tooltip" data-placement="top" title="No Smoking"> <i class="em 
+                em-no_smoking"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="laundry"><i class="em 
-                em-shirt"> </i> <i class="em em-sweat_drops"> </i></label>
+                <label><input type="checkbox" name="laundry"><span data-toggle="tooltip" data-placement="top" title="Laundry"> <i class="em 
+                em-shirt"> </i> <i class="em em-sweat_drops"> </i></span></label>
               </div>
             </div>
             <div class ="row">
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="private-room"><i class="em 
-                em-door"> </i></label>
+                <label><input type="checkbox" name="private-room"><span data-toggle="tooltip" data-placement="top" title="Private Room"> <i class="em 
+                em-door"> </i> </span></label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="private-bath"><i class="em 
-                em-bathtub"> </i></label>
+                <label><input type="checkbox" name="private-bath"> <span data-toggle="tooltip" data-placement="top" title="Private Bath"> <i class="em 
+                em-bathtub"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="furnished"><i class="em 
-                em-tv"> </i></label>
+                <label><input type="checkbox" name="furnished"> <span data-toggle="tooltip" data-placement="top" title="Furnished"> <i class="em 
+                em-tv"> </i></span></label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="wheelchair-access"><i class="em 
-                em-wheelchair"> </i></label>
+                <label><input type="checkbox" name="wheelchair-access"><span data-toggle="tooltip" data-placement="top" title="Wheelchair accessible"> <i class="em em-wheelchair"> </i> </span></label>
               </div>
             </div>
             <div class="row">
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="parking"><i class="em 
-                em-parking"> </i></label>
+                <label><input type="checkbox" name="parking"><span  data-toggle="tooltip" data-placement="top" title="Parking Available"> <i class="em 
+                em-parking"> </i></span></label>
               </div>
             </div>
             <hr>
             <div class ="row">
               <h3>Location</h3>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="sf"><i class="em 
-                em-bridge_at_night"> </i></label>
+                <label><input type="checkbox" name="sf"><span data-toggle="tooltip" data-placement="top" title="San Francisco"> <i class= "em em-bridge_at_night"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="sbay"><i class="em 
+                <label><input type="checkbox" name="sbay"><span data-toggle="tooltip" data-placement="top" title="South Bay"> <i class="em 
                 em-arrow_down_small"> </i> <i class="em 
-                em-ocean"> </i></label>
+                em-ocean"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="ebay"><i class="em 
-                em-arrow_right"> </i><i class="em 
-                em-ocean"> </i></label>
+                <label><input type="checkbox" name="ebay"><span data-toggle="tooltip" data-placement="top" title="East Bay"> <i class="em 
+                em-arrow_right"> </i> <i class="em 
+                em-ocean"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="penn"><i class="em 
-                em-mount_fuji"> </i></label>
+                <label><input type="checkbox" name="nbay"> <span data-toggle="tooltip" data-placement="top" title="North Bay"> <i class="em 
+                em-arrow_up"> </i> <i class="em em-ocean"> </i> </span> </label>
               </div>
-            </div>
-            <div class ="row">
+              </div>
+             <div class ="row">
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="nbay"><i class="em 
-                em-arrow_up"> </i> <i class="em em-ocean"> </i></label>
+                <label><input type="checkbox" name="penn"> <span data-toggle="tooltip" data-placement="top" title="Peninisula"> <i class="em 
+                em-mount_fuji"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
-                <label><input type="checkbox" name="sc"><i class="em 
-                em-surfer"> </i></label>
+                <label><input type="checkbox" name="sc"> <span data-toggle="tooltip" data-placement="top" title="Santa Cruz"> <i class="em 
+                em-surfer"> </i> </span> </label>
               </div>
             </div>
           </div>
