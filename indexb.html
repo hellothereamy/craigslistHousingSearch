@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Web Crawler</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://emojicss.com/emoji.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
+    <!-- main css --> 
+    <link href="main.css" rel="stylesheet"/>
+    <!-- jQuery --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Angular --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="page-header">
+            <h1>The Wonderful World of Web Search</h1>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+          </div>
+        </div>
+      </div>
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="arrow top right"></div>
+          <div class="facets-bubble panel panel-default">
+            <div class ="row">
+              <h3>Housing Types</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="room-shares"> <i class="em 
+                em-house"> </i> <i class= "em em-couple"></i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="apts-housing"><i class="em 
+                em-house_with_garden"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sublets"><i class="em 
+                em-house"></i> <i class="em em-alarm_clock"> </i> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="vacation-rentals"><i class="em 
+                em-house"> </i> <i class="em em-palm_tree"> </i></label>
+              </div>
+            </div>
+            <hr>
+            <div class ="row">
+              <h3>Amenities</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="dogs"> <i class="em 
+                em-dog"> </i> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="cats"> <i class="em 
+                em-cat"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="no-smoking"><i class="em 
+                em-no_smoking"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="laundry"><i class="em 
+                em-shirt"> </i> <i class="em em-sweat_drops"> </i></label>
+              </div>
+            </div>
+            <div class ="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="private-room"><i class="em 
+                em-door"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="private-bath"><i class="em 
+                em-bathtub"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="furnished"><i class="em 
+                em-tv"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="wheelchair-access"><i class="em 
+                em-wheelchair"> </i></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="parking"><i class="em 
+                em-parking"> </i></label>
+              </div>
+            </div>
+            <hr>
+            <div class ="row">
+              <h3>Location</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sf"><i class="em 
+                em-bridge_at_night"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sbay"><i class="em 
+                em-arrow_down_small"> </i> <i class="em 
+                em-ocean"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="ebay"><i class="em 
+                em-arrow_right"> </i><i class="em 
+                em-ocean"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="penn"><i class="em 
+                em-mount_fuji"> </i></label>
+              </div>
+            </div>
+            <div class ="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="nbay"><i class="em 
+                em-arrow_up"> </i> <i class="em em-ocean"> </i></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sc"><i class="em 
+                em-surfer"> </i></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="row">
+              <div class="col-md-3">
+                  <img src="http://images.craigslist.org/00S0S_PPirCqKK4f_600x450.jpg">
+              </div>
+              <div class="col-md-9">
+                  <a>Lovely 1 bedroom apartment great location mature landscapping</a>
+                  <br>
+                  <span>$2050</span> <span>1BR / 1Ba</span> <span>1356 sq ft</span>
+                  <br>
+                  <span>cupertino</span>
+                  <br>
+                  <span>available jun 01</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
