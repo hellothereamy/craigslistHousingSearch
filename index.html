@@ -10,46 +10,108 @@
     <!-- main css --> 
     <link href="main.css" rel="stylesheet"/>
     <!-- jQuery --> 
-	<script src="jquery-1.12.2.min.js"></script>
-	<!-- Angular --> 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-	
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Angular --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
   </head>
-   </head>
 
   <body>
-   <div class="container">
-    <div class="row">    
+    <div class="container">
+      <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
-        	<div class="page-header">
-        	  <h1>The Wonderful World of Web Search</h1>
-        	</div>
-		    <div class="input-group">
-		      <span class="input-group-addon glyphicon glyphicon-search" id="basic-addon1"></span>
-		      <input type="text" class="form-control" value="query" placeholder="Search... " aria-describedby="basic-addon1">
-		    </div>
-		</div>
-	</div>
-	<div class="row">    
+          <div class="page-header">
+            <h1>The Wonderful World of Web Search</h1>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+          </div>
+        </div>
+      </div>
+      <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
-        	<div class="arrow top right"></div>
-		    <div class="facets-bubble panel panel-default">
-		      FACETS! 
-		    </div>
-		</div>
-	</div>
-</div>
-
-
-
-
+          <div class="arrow top right"></div>
+          <div class="facets-bubble panel panel-default">
+            <div class ="row">
+              <h3>Housing Types</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="dogs"> Rooms &amp; Shares</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="cats"> Apts/Housing for Rent</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="laundry"> Sublets &amp; Temporary</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="no-smoking"> Vacation Rentals</label>
+              </div>
+            </div>
+            <hr>
+            <div class ="row">
+              <h3>Amenities</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="dogs"> Dogs</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="cats"> Cats</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="no-smoking"> No Smoking</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="laundry"> Laundry</label>
+              </div>
+            </div>
+            <div class ="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="private-room"> Private Room</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="private-bath"> Private Bath</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="furnished"> Furnished</label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="wheelchair-access"> Wheelchair Access</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="parking"> Parking</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="row">
+              <div class="col-md-3">
+                  <img src="http://images.craigslist.org/00S0S_PPirCqKK4f_600x450.jpg">
+              </div>
+              <div class="col-md-9">
+                  <a>Lovely 1 bedroom apartment great location mature landscapping</a>
+                  <br>
+                  <span>$2050</span> <span>1BR / 1Ba</span> <span>1356 sq ft</span>
+                  <br>
+                  <span>cupertino</span>
+                  <br>
+                  <span>available jun 01</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
-  </html>
+</html>

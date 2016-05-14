@@ -3,9 +3,19 @@
     border: 1px solid #c8c8c8;
     border-radius: 5px;
     width: 100%;
-    text-align: center;
-    padding: 20px;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
     margin-top: 20px;
+}
+
+.facets-bubble hr {
+	margin-bottom: 0;
+}
+
+.facets-bubble h3 {
+	padding-left: 10px;
 }
 
 .arrow {
@@ -22,6 +32,10 @@
 	border-bottom: 10px solid gray;
 	margin-top: 3px
 
+}
+
+img {
+	width: 100%;
 }
 
 /*random comment */
