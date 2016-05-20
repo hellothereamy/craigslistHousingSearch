@@ -140,22 +140,12 @@
           </div>
         </div>
       </div>
-      <div class="row">    
+      <div class="row">
+        <button onclick="changeLocation();">Change Location</button> 
         <div class="col-xs-8 col-xs-offset-2">
-          <div class="row">
-              <div class="col-md-3">
-                  <img src="http://images.craigslist.org/00S0S_PPirCqKK4f_600x450.jpg">
-              </div>
-              <div class="col-md-9">
-                  <a>Lovely 1 bedroom apartment great location mature landscapping</a>
-                  <br>
-                  <span>$2050</span> <span>1BR / 1Ba</span> <span>1356 sq ft</span>
-                  <br>
-                  <span>cupertino</span>
-                  <br>
-                  <span>available jun 01</span>
-              </div>
-          </div>
+          <div id="map"></div>
+          <script src="map.js" type="text/javascript" charset="utf-8" async defer></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy2m_H-odemZ5FYX6GXyYXpnacj7s7X4U&callback=initMap" type="text/javascript" charset="utf-8" async defer></script>
         </div>
       </div>
     </div>
