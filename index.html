@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <div class="container" ng-app="myApp" ng-controller="myCtrl">
+    <div class="container" ng-app="myApp" ng-click="countClick()" ng-controller="myCtrl">
       <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
           <div class="page-header">
@@ -33,9 +33,9 @@
           </div>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon2">
+            <input type="text" id="query" class="form-control" placeholder="" aria-describedby="sizing-addon2">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Search!</button>
+              <button ng-click="handleQuery()" class="btn btn-default" type="button">Search!</button>
             </span>
           </div>
         </div>
