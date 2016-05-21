@@ -12,7 +12,7 @@
     <!-- jQuery --> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
     <!-- Angular --> 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" ng-app="myApp" ng-controller="myCtrl">
       <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
           <div class="page-header">
@@ -33,7 +33,10 @@
           </div>
           <div class="input-group">
             <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+            <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon2">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Search!</button>
+            </span>
           </div>
         </div>
       </div>
@@ -119,23 +122,29 @@
         </div>
       </div>
       <div class="row">    
-        <div class="col-xs-8 col-xs-offset-2">
+        <div ng-repeat="result in results" class="col-xs-8 col-xs-offset-2">
           <div class="row">
               <div class="col-md-3">
-                  <img src="http://images.craigslist.org/00S0S_PPirCqKK4f_600x450.jpg">
+                  <img ng-src="{{ result.link }}">
               </div>
               <div class="col-md-9">
-                  <a>Lovely 1 bedroom apartment great location mature landscapping</a>
+                  <a>{{ result.title }}</a>
                   <br>
-                  <span>$2050</span> <span>1BR / 1Ba</span> <span>1356 sq ft</span>
+                  <span>{{ result.price }}</span> <span>{{ result.br }}BR / {{ result.ba }}Ba</span> <span>{{ result.sqFt }} sq ft</span>
                   <br>
-                  <span>cupertino</span>
+                  <span>{{ result.city }}</span>
                   <br>
-                  <span>available jun 01</span>
+                  <span>{{ result.avail }}</span>
               </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Modules -->
+    <script src="js/app.js"></script>
+
+    <!-- Controllers -->
+    <script src="js/controllers/MainController.js"></script>
   </body>
 </html>
