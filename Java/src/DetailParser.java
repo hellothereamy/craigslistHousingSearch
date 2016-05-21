@@ -73,6 +73,9 @@ public class DetailParser {
                             detailAttrs.put("parking", "true");
                         }
                     }
+                    else{ // last option should be housing type, e.g., house, apartment, condo, etc.
+                        detailAttrs.put("housetype", attrText);
+                    }
 
                 }
             }
