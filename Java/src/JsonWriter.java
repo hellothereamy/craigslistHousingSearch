@@ -15,14 +15,14 @@ public class JsonWriter {
 	Path jsonFilePath = Paths.get(jsonFileName).toAbsolutePath();
 
 	public void appendToJSONFile(Map<String, String> attributes) {
-		String toAppend = "{";
+		String toAppend = ",{";
 
 		for(Map.Entry<String, String> entry : attributes.entrySet()) {
 			toAppend += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
 		}
 
 		toAppend = toAppend.substring(0, toAppend.length() - 1); // Remove the last comma in the listing object
-		toAppend += "},";
+		toAppend += "}";
 
 		try {
 			Files.write(jsonFilePath, toAppend.getBytes(), StandardOpenOption.APPEND);
@@ -32,11 +32,18 @@ public class JsonWriter {
 	}
 
 	// Write the opening '[' to the file
-	public void openJSONFile() {
-		String s = "[";
+	public void openJSONFile(Map<String, String> attributes) {
+		String toAppend = "[{";
+
+		for(Map.Entry<String, String> entry : attributes.entrySet()) {
+			toAppend += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
+		}
+
+		toAppend = toAppend.substring(0, toAppend.length() - 1); // Remove the last comma in the listing object
+		toAppend += "}";
 
 		try {
-			Files.write(jsonFilePath, s.getBytes()); // Default options are CREATE, TRUNCATE_EXISTING, WRITE
+			Files.write(jsonFilePath, toAppend.getBytes()); // Default options are CREATE, TRUNCATE_EXISTING, WRITE
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
