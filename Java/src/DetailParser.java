@@ -11,13 +11,24 @@ import static java.lang.Integer.parseInt;
  */
 public class DetailParser {
     private Document doc;
-    public Map<String, String> detailAttrs;
+    private Map<String, String> detailAttrs;
+    private JsonWriter jw;
+
 
     // Class constructor -- auto parse
     public DetailParser(Document d){
         this.doc = d;
         this.detailAttrs = new HashMap<>();
         parse();
+        jw = new JsonWriter();
+        jw.openJSONFile(this.detailAttrs);
+    }
+
+    public void setDoc(Document d){
+        this.doc = d;
+        this.detailAttrs.clear();
+        parse();
+        jw.appendToJSONFile(detailAttrs);
     }
 
     private void parseAttributes(){
