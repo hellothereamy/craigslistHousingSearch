@@ -1,32 +1,18 @@
-<<<<<<< HEAD
 import java.nio.file.Files;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.Map;
 //import java.util.HashMap;
-=======
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Map;
->>>>>>> origin/master
 
 /**
  * Created by dobatake on 5/19/16.
  */
 public class JsonWriter {
 	String jsonFileName = "docToPost.json";
-<<<<<<< HEAD
+
 	// Path jsonFilePath = Paths.get(Paths.get("").toAbsolutePath().toString(), jsonFileName);
 	Path jsonFilePath = Paths.get(jsonFileName).toAbsolutePath();
-=======
-	//Path absPath = ;
-	Path jsonFilePath = Paths.get(Paths.get("").toAbsolutePath().toString(), jsonFileName);
-	//Path jsonFilePath = Paths.get(jsonFileName).toAbsolutePath();
->>>>>>> origin/master
 
 	public void appendToJSONFile(Map<String, String> attributes) {
 		String toAppend = "{";
@@ -35,11 +21,7 @@ public class JsonWriter {
 			toAppend += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
 		}
 
-<<<<<<< HEAD
 		toAppend = toAppend.substring(0, toAppend.length() - 1); // Remove the last comma in the listing object
-=======
-		toAppend.substring(0, toAppend.length() - 1); // Remove the last comma in the listing object
->>>>>>> origin/master
 		toAppend += "},";
 
 		try {
