@@ -51,20 +51,9 @@ public class JsonWriter {
 
 	// Write the closing ']' to the file
 	public void closeJSONFile() {
-		String str = "";
-		
-		byte[] fileBytes;
+			String str = "]";
 		try {
-			fileBytes = Files.readAllBytes(jsonFilePath);
-			str = new String(fileBytes, StandardCharsets.UTF_8);
-			str = str.substring(0, str.length() - 1);
-			str += "]";
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			Files.write(jsonFilePath, str.getBytes(), StandardOpenOption.WRITE);
+			Files.write(jsonFilePath, str.getBytes(), StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
