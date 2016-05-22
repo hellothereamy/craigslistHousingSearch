@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Web Crawler</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://emojicss.com/emoji.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
+    <!-- main css --> 
+    <link href="main.css" rel="stylesheet"/>
+    <!-- jQuery --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Angular --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <!-- main js --> 
+    <script src="main.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="page-header">
+            <h1>The Wonderful World of Web Search</h1>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon2">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Search!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="arrow uparrow right"></div>
+          <div class="facets-bubble panel panel-default">
+            <div class ="row">
+              <h3>Housing Types</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="room-shares"> <span  data-toggle="tooltip" data-placement="top" title="Rooms &amp; Shares" > <i class="em 
+                em-house"> </i> <i class= "em em-couple"></i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="apts-housing"><span data-toggle="tooltip" data-placement="top" title="Apt/Housing for Rent"> <i class="em 
+                em-house_with_garden"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sublets"> <span  data-toggle="tooltip" data-placement="top" title="Sublets and Temporary"> <i class="em 
+                em-house"></i> <i class="em em-alarm_clock"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="vacation-rentals"> <span  data-toggle="tooltip" data-placement="top" title="Vacation Rental">  <i class="em 
+                em-house"> </i> <i class="em em-palm_tree"> </i></label>
+              </div>
+            </div>
+            <hr>
+            <div class ="row">
+              <h3>Amenities</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="dogs"><span data-toggle="tooltip" data-placement="top" title="Dogs Allowed"> <i class="em 
+                em-dog"> </i> </span></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="cats"><span data-toggle="tooltip" data-placement="top" title="Cats Allowed"> <i class="em 
+                em-cat"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="no-smoking"><span data-toggle="tooltip" data-placement="top" title="No Smoking"> <i class="em 
+                em-no_smoking"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="laundry"><span data-toggle="tooltip" data-placement="top" title="Laundry"> <i class="em 
+                em-shirt"> </i> <i class="em em-sweat_drops"> </i></span></label>
+              </div>
+            </div>
+            <div class ="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="private-room"><span data-toggle="tooltip" data-placement="top" title="Private Room"> <i class="em 
+                em-door"> </i> </span></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="private-bath"> <span data-toggle="tooltip" data-placement="top" title="Private Bath"> <i class="em 
+                em-bathtub"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="furnished"> <span data-toggle="tooltip" data-placement="top" title="Furnished"> <i class="em 
+                em-tv"> </i></span></label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="wheelchair-access"><span data-toggle="tooltip" data-placement="top" title="Wheelchair accessible"> <i class="em em-wheelchair"> </i> </span></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="parking"><span  data-toggle="tooltip" data-placement="top" title="Parking Available"> <i class="em 
+                em-parking"> </i></span></label>
+              </div>
+            </div>
+            <hr>
+            <div class ="row">
+              <h3>Location</h3>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sf"><span data-toggle="tooltip" data-placement="top" title="San Francisco"> <i class= "em em-bridge_at_night"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sbay"><span data-toggle="tooltip" data-placement="top" title="South Bay"> <i class="em 
+                em-arrow_down_small"> </i> <i class="em 
+                em-ocean"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="ebay"><span data-toggle="tooltip" data-placement="top" title="East Bay"> <i class="em 
+                em-arrow_right"> </i> <i class="em 
+                em-ocean"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="nbay"> <span data-toggle="tooltip" data-placement="top" title="North Bay"> <i class="em 
+                em-arrow_up"> </i> <i class="em em-ocean"> </i> </span> </label>
+              </div>
+              </div>
+             <div class ="row">
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="penn"> <span data-toggle="tooltip" data-placement="top" title="Peninisula"> <i class="em 
+                em-mount_fuji"> </i> </span> </label>
+              </div>
+              <div class= "col-md-3 col-lg-3">
+                <label><input type="checkbox" name="sc"> <span data-toggle="tooltip" data-placement="top" title="Santa Cruz"> <i class="em 
+                em-surfer"> </i> </span> </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <button onclick="changeLocation();">Change Location</button> 
+        <div class="col-xs-8 col-xs-offset-2">
+          <div id="map"></div>
+          <script src="map.js" type="text/javascript" charset="utf-8" async defer></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy2m_H-odemZ5FYX6GXyYXpnacj7s7X4U&callback=initMap" type="text/javascript" charset="utf-8" async defer></script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
