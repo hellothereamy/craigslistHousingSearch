@@ -1,8 +1,13 @@
-app.controller('myCtrl', function($scope) {
+app.controller('myCtrl', function($scope, $http) {
 	window.onload = function(){
 		start = new Date();
 		console.log(start.getTime());
 		alert(start.getTime());
+		$http.post('/', start.getTime()).then(function (success) {
+			console.log(success);
+		}, function(error) {
+			console.log(error);
+		});
 	};
 	$scope.count = 0;
 	$scope.countClick = function(){
