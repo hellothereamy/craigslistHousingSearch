@@ -28,6 +28,7 @@ public class ContentConverter {
                     filepath = Paths.get(docStore.toString(), docList.get(i).toString());
                     dparser.setDoc(Jsoup.parse(new File(String.valueOf(filepath)), "UTF-8"));
                 }
+                dparser.noMoreDocs();
             } catch (IOException e) {
                 e.printStackTrace();
             }

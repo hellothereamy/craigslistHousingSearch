@@ -15,7 +15,7 @@ public class JsonWriter {
 	Path jsonFilePath = Paths.get(jsonFileName).toAbsolutePath();
 
 	public void appendToJSONFile(Map<String, String> attributes) {
-		String toAppend = ",{";
+		String toAppend = ",\n{";
 
 		for(Map.Entry<String, String> entry : attributes.entrySet()) {
 			toAppend += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
