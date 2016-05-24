@@ -1,0 +1,22 @@
+{
+  "name": "craigslist-housing-search",
+  "version": "1.0.0",
+  "description": "search engine for craigslists housing section",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellothereamy/craigslistHousingSearch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellothereamy/craigslistHousingSearch/issues"
+  },
+  "homepage": "https://github.com/hellothereamy/craigslistHousingSearch#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

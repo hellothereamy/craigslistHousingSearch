@@ -49,7 +49,9 @@ public class project2WebCrawler {
 	}
 	
 	private void crawlSites() {
-		Pattern pattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/[a-z]{3}\\/[a-z]{3}\\/\\d*\\.html$");
+		Pattern pattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/[a-z]{3}\\/[a-z]{3}\\/\\d*\\.html$"),
+				searchPattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/search\\/[a-z]{3}(\\?s=\\d{3})?$");
+		Matcher matcher, searchMatcher;
 		while(!sitesToCrawl.isEmpty() && crawlCounter < maxCrawls) {			
 			webUrl = sitesToCrawl.element();
 			sitesToCrawl.remove();
@@ -100,10 +102,8 @@ public class project2WebCrawler {
 			}
 			
 			// Index site and get outlinks
-			crawlCounter++;	
 			hrefList = doc.body().select("a[href]"); // Get all href elements (outlinks)
 			indexedWebsites.add(webUrl);
-			System.out.println("Finished indexing url " + crawlCounter + ": " + webUrl);
 			for(int j = 0; j < hrefList.size(); j++) {
 				Element elt = hrefList.get(j);
 				String outlink = elt.attr("abs:href");
@@ -123,31 +123,37 @@ public class project2WebCrawler {
 					continue;
 				// It's okay if we add duplicates to this list b/c we'll be checking if we crawled the site yet at the beginning of the first for loop
 				
-				Matcher matcher = pattern.matcher(outlink);
-				if(matcher.find()) { // individual housing page
+				matcher = pattern.matcher(outlink);
+				searchMatcher = searchPattern.matcher(outlink);
+				if(matcher.find() || searchMatcher.find()) { // individual housing page or search page
 					sitesToCrawl.add(outlink);
-					System.out.println(outlink);
+//					System.out.println(outlink);
 				}
 				
 //				System.out.println(outlink);
 			}
-		
-			// Post-crawl business
-			try {
-				String filePath = "repository/" + crawlCounter + ".html";
-				PrintWriter filepw = new PrintWriter(filePath);
-				filepw.println(doc.outerHtml());
-				reportpw.println("\t<p>");
-				reportpw.println("\t\t" + crawlCounter + ". ");
-				reportpw.println("\t\t<a href=\"" + webUrl + "\">" + doc.title() + "</a>"); // live URL
-				reportpw.println("\t\t<a href=\"" + filePath + "\">" + "Local file" + "</a>"); // local file
-				reportpw.println("\t\tHTTP Status Code: " + connection.response().statusCode());
-				reportpw.println("\t\tNumber of outlinks: " + hrefList.size());
-				reportpw.println("\t\tNumber of images: " + doc.body().select("img").size());
-				reportpw.println("\t</p>");
-				filepw.close();
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
+
+			searchMatcher = searchPattern.matcher(webUrl);
+			if(!searchMatcher.find() && !webUrl.contains("/search/")) { // Isn't a search page => is a housing listing
+				// Post-crawl business
+				crawlCounter++;	
+				try {
+					System.out.println("Finished indexing url " + crawlCounter + ": " + webUrl);
+					String filePath = "repository/" + crawlCounter + ".html";
+					PrintWriter filepw = new PrintWriter(filePath);
+					filepw.println(doc.outerHtml());
+					/*reportpw.println("\t<p>");
+					reportpw.println("\t\t" + crawlCounter + ". ");
+					reportpw.println("\t\t<a href=\"" + webUrl + "\">" + doc.title() + "</a>"); // live URL
+					reportpw.println("\t\t<a href=\"" + filePath + "\">" + "Local file" + "</a>"); // local file
+					reportpw.println("\t\tHTTP Status Code: " + connection.response().statusCode());
+					reportpw.println("\t\tNumber of outlinks: " + hrefList.size());
+					reportpw.println("\t\tNumber of images: " + doc.body().select("img").size());
+					reportpw.println("\t</p>");*/
+					filepw.close();
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 			
 			// Sleep for politeness
