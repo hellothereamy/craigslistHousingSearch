@@ -3,17 +3,46 @@ app.controller('myCtrl', function($scope, $http) {
 		start = new Date();
 		console.log(start.getTime());
 		alert(start.getTime());
-		$http.post('/', start.getTime()).then(function (success) {
+		$http.post('/', new Date().toString()+",start,"+start.getTime()).then(function (success) {
 			console.log(success);
 		}, function(error) {
 			console.log(error);
 		});
 	};
 	$scope.count = 0;
+	$scope.facetClicked =[];
 	$scope.countClick = function(e){
 		$scope.count ++;
+		$http.post('/', new Date().toString()+",click,"+$scope.count).then(function (success) {
+			console.log(success);
+		}, function(error) {
+			console.log(error);
+		});
 		console.log($scope.count);
-		console.log(e);
+		console.log(e.target.type);
+		if(e.target.tagName == "INPUT"){
+			if(e.target.type == "checkbox"){
+				if(e.target.checked){
+					$scope.facetClicked.push(e.target.name);
+					console.log($scope.facetClicked);
+					$http.post('/', new Date().toString()+",facet,"+$scope.facetClicked).then(function (success) {
+						console.log(success);
+					}, function(error) {
+						console.log(error);
+					});
+				}
+				else{
+					var index = $scope.facetClicked.indexOf(e.target.name);
+					$scope.facetClicked.splice(index,1);
+					console.log($scope.facetClicked);
+					$http.post('/', new Date().toString()+",facet,"+$scope.facetClicked).then(function (success) {
+						console.log(success);
+					}, function(error) {
+						console.log(error);
+					});
+				}
+			}
+		}
 	}
 	$scope.queries = [];
 	$scope.queryCount=0;
@@ -22,8 +51,18 @@ app.controller('myCtrl', function($scope, $http) {
 		var currQuery = document.getElementById("query").value;
 		console.log(currQuery);
 		$scope.queries.push(currQuery);
+		$http.post('/', new Date().toString()+",query,"+currQuery).then(function (success) {
+			console.log(success);
+		}, function(error) {
+			console.log(error);
+		});
 		console.log($scope.queries);
 		$scope.queryCount ++;
+		$http.post('/', new Date().toString()+",queryCount,"+$scope.queryCount).then(function (success) {
+			console.log(success);
+		}, function(error) {
+			console.log(error);
+		});
 		console.log("query count: "+$scope.queryCount);
 	};
 	window.onbeforeunload= function(event){
