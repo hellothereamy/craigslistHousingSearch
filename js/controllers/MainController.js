@@ -5,17 +5,21 @@ app.controller('myCtrl', function($scope) {
 		alert(start.getTime());
 	};
 	$scope.count = 0;
-	$scope.countClick = function(){
+	$scope.countClick = function(e){
 		$scope.count ++;
 		console.log($scope.count);
+		console.log(e);
 	}
 	$scope.queries = [];
+	$scope.queryCount=0;
 
 	$scope.handleQuery = function(){
 		var currQuery = document.getElementById("query").value;
 		console.log(currQuery);
 		$scope.queries.push(currQuery);
 		console.log($scope.queries);
+		$scope.queryCount ++;
+		console.log("query count: "+$scope.queryCount);
 	};
 	window.onbeforeunload= function(event){
 		end = new Date();
