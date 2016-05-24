@@ -11,9 +11,7 @@ public class ParserTest {
     public static void main(String[] args) {
         try {
             DetailParser parser = new DetailParser(Jsoup.parse(new File("test_html.htm"), "UTF-8"));
-            for(Map.Entry<String, String> entry: parser.detailAttrs.entrySet()){
-                System.out.println(entry);
-            }
+            parser.outputAttributes();
         } catch (IOException e) {
             e.printStackTrace();
         }
