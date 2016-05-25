@@ -61,7 +61,7 @@ public class DetailParser {
                             detailAttrs.put("bathroom_s", "Other");
                         }
                     }
-                    else if(attrText.matches("[0-9]+ft")){
+                    else if(attrText.contains("ft") && !attrText.contains("loft")){
                         detailAttrs.put("sqft_s", new Integer(parseInt(attrText.split("(\\p{Alpha})")[0])).toString());
                     }
                     else if(attrText.contains("available")){
