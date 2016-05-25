@@ -3,7 +3,7 @@ app.controller('myCtrl', function($scope, $http) {
 		start = new Date();
 		console.log(start.getTime());
 		alert(start.getTime());
-		$http.post('/', start.getTime()).then(function (success) {
+		$http.post('/', { 'message' : "message" }).then(function (success) {
 			console.log(success);
 		}, function(error) {
 			console.log(error);
