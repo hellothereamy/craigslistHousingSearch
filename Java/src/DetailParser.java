@@ -117,7 +117,7 @@ public class DetailParser {
             detailAttrs.put("image_src_s", img.attr("abs:src"));
         } catch (NullPointerException ne){
             // In case there are no images...
-            detailAttrs.put("image_src_s", "None");
+            detailAttrs.put("image_src_s", "");
         }
     }
 
