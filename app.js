@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var app = express();
 
 app.use(express.static("public"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
@@ -13,8 +13,9 @@ app.listen(3000, function () {
 
 //handle log updates
 app.post('/', function(req, res) {
-	fs.appendFile('message.txt', req.body['message'], (err) => {
+	fs.appendFile('log.txt', req.body.data + '\n', (err) => {
 	  if (err) throw err;
-	  console.log('The '+ req.body['message'] +' was appended to file!\n');
+	  console.log(req.body.data +' was appended to file!\n');
+	  res.send(req.body.data);
 	});
 });

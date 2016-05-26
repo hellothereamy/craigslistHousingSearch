@@ -15,7 +15,7 @@ public class JsonWriter {
 	Path jsonFilePath = Paths.get(jsonFileName).toAbsolutePath();
 
 	public void appendToJSONFile(Map<String, String> attributes) {
-		String toAppend = ",{";
+		String toAppend = ",\n{";
 
 		for(Map.Entry<String, String> entry : attributes.entrySet()) {
 			toAppend += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
@@ -51,20 +51,9 @@ public class JsonWriter {
 
 	// Write the closing ']' to the file
 	public void closeJSONFile() {
-		String str = "";
-		
-		byte[] fileBytes;
+			String str = "]";
 		try {
-			fileBytes = Files.readAllBytes(jsonFilePath);
-			str = new String(fileBytes, StandardCharsets.UTF_8);
-			str = str.substring(0, str.length() - 1);
-			str += "]";
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			Files.write(jsonFilePath, str.getBytes(), StandardOpenOption.WRITE);
+			Files.write(jsonFilePath, str.getBytes(), StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

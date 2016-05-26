@@ -4,6 +4,7 @@ import org.jsoup.select.Elements;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -31,6 +32,10 @@ public class DetailParser {
         jw.appendToJSONFile(detailAttrs);
     }
 
+    public void noMoreDocs(){
+        jw.closeJSONFile();
+    }
+
     private void parseAttributes(){
         //get housing facets/attributes
         Elements attrs = doc.select("p.attrgroup");
@@ -41,11 +46,22 @@ public class DetailParser {
                 if(!attrText.isEmpty()) {
                     //System.out.println(attrText);
                     if(attrText.contains("BR")) {
-                        String[] Br_Ba = attrText.split("/");
-                        detailAttrs.put("bedroom", new Integer(parseInt(Br_Ba[0].replaceAll("(\\p{Alpha})", "").trim())).toString());
-                        detailAttrs.put("bathroom", new Integer(parseInt(Br_Ba[1].replaceAll("(\\p{Alpha})", "").trim())).toString());
+                        String[] Br_Ba = attrText.replaceAll("(\\p{Alpha})", "").trim().split("/");
+                        detailAttrs.put("bedroom", Integer.toString(parseInt(Br_Ba[0].trim())));
+                        try {
+                            if(!Br_Ba[1].isEmpty()) {
+                                if (Br_Ba[1].contains("."))
+                                    detailAttrs.put("bathroom", Float.toString(parseFloat(Br_Ba[1].trim())));
+                                else
+                                    detailAttrs.put("bathroom", Integer.toString(parseInt(Br_Ba[1].trim())));
+                            }
+                            else
+                                detailAttrs.put("bathroom", "Other");
+                        }catch (ArrayIndexOutOfBoundsException a){
+                            detailAttrs.put("bathroom", "Other");
+                        }
                     }
-                    else if(attrText.contains("ft")){
+                    else if(attrText.matches("[0-9]+ft")){
                         detailAttrs.put("sqft", new Integer(parseInt(attrText.split("(\\p{Alpha})")[0])).toString());
                     }
                     else if(attrText.contains("available")){
@@ -96,8 +112,13 @@ public class DetailParser {
     // Grab main picture of page
     //@TODO: Do we want to get all images?
     private void parsePicture(){
-        Element img = doc.select("img").first();
-        detailAttrs.put("image_src", img.attr("abs:src"));
+        try {
+            Element img = doc.select("img").first();
+            detailAttrs.put("image_src", img.attr("abs:src"));
+        } catch (NullPointerException ne){
+            // In case there are no images...
+            detailAttrs.put("image_src", "None");
+        }
     }
 
     private void parseCategories(){
@@ -112,7 +133,7 @@ public class DetailParser {
     }
 
     private void parseBodyText(){
-        detailAttrs.put("bodytext", doc.select("#postingbody").text());
+        detailAttrs.put("bodytext", doc.select("#postingbody").text().replaceAll("\"", ""));
     }
 
     private void parsePostInfo(){
@@ -120,10 +141,16 @@ public class DetailParser {
         for(Element info : infos){
             String ifText = info.text();
             if(ifText.contains("id")){
-                detailAttrs.put("postid", ifText);
+                String[] idParts = ifText.split(" ");
+                detailAttrs.put("postid", idParts[2]);
             }
         }
         detailAttrs.put("datetime", doc.select("p.postinginfo.reveal > time").text());
+    }
+
+    private void parseAddress(){
+        detailAttrs.put("street_address", doc.select("div.mapaddress").text());
+        detailAttrs.put("google_maps_link", doc.select("p.mapaddress").select("a").attr("abs:href"));
     }
 
     private void parse(){
@@ -133,5 +160,12 @@ public class DetailParser {
         parsePicture();
         parseBodyText();
         parsePostInfo();
+        parseAddress();
+    }
+
+    public void outputAttributes(){
+        for(Map.Entry<String, String> entry: this.detailAttrs.entrySet()){
+            System.out.println(entry);
+        }
     }
 }

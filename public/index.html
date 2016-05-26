@@ -22,10 +22,12 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+
+    <script type="text/javascript" src="/js/solstice.min.js"></script>
   </head>
 
   <body>
-    <div class="container" ng-app="myApp" ng-click="countClick()" ng-controller="myCtrl">
+    <div class="container" ng-app="myApp" ng-click="countClick($event)" ng-controller="myCtrl">
       <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
           <div class="page-header">
@@ -125,18 +127,18 @@
         <div ng-repeat="result in results" class="col-xs-8 col-xs-offset-2">
           <div class="row">
               <div class="col-md-3">
-                  <img ng-src="{{ result.link }}">
+                  <img ng-src="{{ result.image_src_s }}">
               </div>
               <div class="col-md-9">
-                  <a>{{ result.title }}</a>
+                  <a href="{{ result.page_url_s }}">{{ result.title_s }}</a>
                   <br>
-                  <span>{{ result.price }}</span> <span>{{ result.br }}BR / {{ result.ba }}Ba</span> <span>{{ result.sqFt }} sq ft</span>
+                  <span>{{ result.price_s }}</span> <span>{{ result.bedroom_s }}BR / {{ result.bathroom_s }}Ba</span> <span>{{ result.sqFt_s }} sq ft</span>
                   <br>
-                  <span>{{ result.city }}</span>
+                  <span>{{ result.neighborhood_s }}</span>
                   <br>
-                  <span>{{ result.avail }}</span>
+                  <span>{{ result.available_s }}</span>
               </div>
-          </div>
+          </div><br>
         </div>
       </div>
     </div>

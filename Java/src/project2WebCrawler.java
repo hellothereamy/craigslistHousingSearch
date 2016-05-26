@@ -134,7 +134,7 @@ public class project2WebCrawler {
 			}
 
 			searchMatcher = searchPattern.matcher(webUrl);
-			if(!searchMatcher.find()) { // Isn't a search page => is a housing listing
+			if(!searchMatcher.find() && !webUrl.contains("/search/")) { // Isn't a search page => is a housing listing
 				// Post-crawl business
 				crawlCounter++;	
 				try {
@@ -142,14 +142,14 @@ public class project2WebCrawler {
 					String filePath = "repository/" + crawlCounter + ".html";
 					PrintWriter filepw = new PrintWriter(filePath);
 					filepw.println(doc.outerHtml());
-					reportpw.println("\t<p>");
+					/*reportpw.println("\t<p>");
 					reportpw.println("\t\t" + crawlCounter + ". ");
 					reportpw.println("\t\t<a href=\"" + webUrl + "\">" + doc.title() + "</a>"); // live URL
 					reportpw.println("\t\t<a href=\"" + filePath + "\">" + "Local file" + "</a>"); // local file
 					reportpw.println("\t\tHTTP Status Code: " + connection.response().statusCode());
 					reportpw.println("\t\tNumber of outlinks: " + hrefList.size());
 					reportpw.println("\t\tNumber of images: " + doc.body().select("img").size());
-					reportpw.println("\t</p>");
+					reportpw.println("\t</p>");*/
 					filepw.close();
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();

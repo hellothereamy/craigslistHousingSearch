@@ -22,9 +22,13 @@ public class ContentConverter {
 
         if(docList != null){
             try {
-                DetailParser dparser = new DetailParser(Jsoup.parse(new File(String.valueOf(docList.get(0))), "UTF-8"));
-                for(int i = 1; i<docList.size(); i++)
-                    dparser.setDoc(Jsoup.parse(new File(String.valueOf(docList.get(i))), "UTF-8"));
+                Path filepath = Paths.get(docStore.toString(), docList.get(0).toString());
+                DetailParser dparser = new DetailParser(Jsoup.parse(new File(String.valueOf(filepath)), "UTF-8"));
+                for(int i = 1; i<docList.size(); i++) {
+                    filepath = Paths.get(docStore.toString(), docList.get(i).toString());
+                    dparser.setDoc(Jsoup.parse(new File(String.valueOf(filepath)), "UTF-8"));
+                }
+                dparser.noMoreDocs();
             } catch (IOException e) {
                 e.printStackTrace();
             }
