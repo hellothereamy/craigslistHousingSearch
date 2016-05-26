@@ -65,6 +65,7 @@ app.controller('myCtrl', function($scope, $http) {
 		});
 		console.log("query count: "+$scope.queryCount);
 	};
+	
 	window.onbeforeunload= function(event){
 		end = new Date();
 		totalTime = ( end.getTime()-start.getTime() );
