@@ -47,61 +47,61 @@ public class DetailParser {
                     //System.out.println(attrText);
                     if(attrText.contains("BR")) {
                         String[] Br_Ba = attrText.replaceAll("(\\p{Alpha})", "").trim().split("/");
-                        detailAttrs.put("bedroom", Integer.toString(parseInt(Br_Ba[0].trim())));
+                        detailAttrs.put("bedroom_s", Integer.toString(parseInt(Br_Ba[0].trim())));
                         try {
                             if(!Br_Ba[1].isEmpty()) {
                                 if (Br_Ba[1].contains("."))
-                                    detailAttrs.put("bathroom", Float.toString(parseFloat(Br_Ba[1].trim())));
+                                    detailAttrs.put("bathroom_s", Float.toString(parseFloat(Br_Ba[1].trim())));
                                 else
-                                    detailAttrs.put("bathroom", Integer.toString(parseInt(Br_Ba[1].trim())));
+                                    detailAttrs.put("bathroom_s", Integer.toString(parseInt(Br_Ba[1].trim())));
                             }
                             else
-                                detailAttrs.put("bathroom", "Other");
+                                detailAttrs.put("bathroom_s", "Other");
                         }catch (ArrayIndexOutOfBoundsException a){
-                            detailAttrs.put("bathroom", "Other");
+                            detailAttrs.put("bathroom_s", "Other");
                         }
                     }
-                    else if(attrText.matches("[0-9]+ft")){
-                        detailAttrs.put("sqft", new Integer(parseInt(attrText.split("(\\p{Alpha})")[0])).toString());
+                    else if(attrText.contains("ft") && !attrText.contains("loft")){
+                        detailAttrs.put("sqft_s", new Integer(parseInt(attrText.split("(\\p{Alpha})")[0])).toString());
                     }
                     else if(attrText.contains("available")){
-                        detailAttrs.put("available", attrText);
+                        detailAttrs.put("available_s", attrText);
                     }
                     else if(attrText.contains("furnished")){
-                        detailAttrs.put("furnished", "true");
+                        detailAttrs.put("furnished_s", "true");
                     }
                     else if(attrText.contains("smoking")){
-                        detailAttrs.put("smoking", "false");
+                        detailAttrs.put("smoking_s", "false");
                     }
                     else if(attrText.contains("wheelchair")){
-                        detailAttrs.put("wheelchair", "true");
+                        detailAttrs.put("wheelchair_s", "true");
                     }
                     else if(attrText.contains("cats")){
-                        detailAttrs.put("cats", "true");
+                        detailAttrs.put("cats_s", "true");
                     }
                     else if(attrText.contains("dogs")){
-                        detailAttrs.put("dogs", "true");
+                        detailAttrs.put("dogs_s", "true");
                     }
                     else if(attrText.contains("laundry") || attrText.contains("w/d")){
                         if(attrText.contains("No") || attrText.contains("hookups")){
-                            detailAttrs.put("laundry", "false");
+                            detailAttrs.put("laundry_s", "false");
                         }
                         else{
-                            detailAttrs.put("laundry", "true");
+                            detailAttrs.put("laundry_s", "true");
                         }
                     }
                     else if(attrText.contains("garage") ||
                             attrText.contains("carport") ||
                             attrText.contains("parking")){
                         if(attrText.contains("No")){
-                            detailAttrs.put("parking", "false");
+                            detailAttrs.put("parking_s", "false");
                         }
                         else{
-                            detailAttrs.put("parking", "true");
+                            detailAttrs.put("parking_s", "true");
                         }
                     }
                     else{ // last option should be housing type, e.g., house, apartment, condo, etc.
-                        detailAttrs.put("housetype", attrText);
+                        detailAttrs.put("housetype_s", attrText);
                     }
 
                 }
@@ -114,26 +114,26 @@ public class DetailParser {
     private void parsePicture(){
         try {
             Element img = doc.select("img").first();
-            detailAttrs.put("image_src", img.attr("abs:src"));
+            detailAttrs.put("image_src_s", img.attr("abs:src"));
         } catch (NullPointerException ne){
             // In case there are no images...
-            detailAttrs.put("image_src", "None");
+            detailAttrs.put("image_src_s", "");
         }
     }
 
     private void parseCategories(){
-        detailAttrs.put("subarea", doc.select("ul.breadcrumbs").select("li.crumb.subarea").select("[href]").text());
-        detailAttrs.put("category", doc.select("ul.breadcrumbs").select("li.crumb.category").select("[href]").text());
+        detailAttrs.put("subarea_s", doc.select("ul.breadcrumbs").select("li.crumb.subarea").select("[href]").text());
+        detailAttrs.put("category_s", doc.select("ul.breadcrumbs").select("li.crumb.category").select("[href]").text());
     }
 
     private void parseTitle(){
-        detailAttrs.put("price", doc.select("span.price").text());
-        detailAttrs.put("title", doc.select("#titletextonly").text());
-        detailAttrs.put("neighborhood", doc.select("span.postingtitletext > small").text().replaceAll("[()]", ""));
+        detailAttrs.put("price_s", doc.select("span.price").text());
+        detailAttrs.put("title_s", doc.select("#titletextonly").text().replaceAll("\"", ""));
+        detailAttrs.put("neighborhood_s", doc.select("span.postingtitletext > small").text().replaceAll("[()]", ""));
     }
 
     private void parseBodyText(){
-        detailAttrs.put("bodytext", doc.select("#postingbody").text().replaceAll("\"", ""));
+        detailAttrs.put("bodytext_s", doc.select("#postingbody").text().replaceAll("\"", ""));
     }
 
     private void parsePostInfo(){
@@ -142,15 +142,19 @@ public class DetailParser {
             String ifText = info.text();
             if(ifText.contains("id")){
                 String[] idParts = ifText.split(" ");
-                detailAttrs.put("postid", idParts[2]);
+                detailAttrs.put("postid_s", idParts[2]);
             }
         }
-        detailAttrs.put("datetime", doc.select("p.postinginfo.reveal > time").text());
+        detailAttrs.put("datetime_s", doc.select("p.postinginfo.reveal > time").text());
     }
 
     private void parseAddress(){
-        detailAttrs.put("street_address", doc.select("div.mapaddress").text());
-        detailAttrs.put("google_maps_link", doc.select("p.mapaddress").select("a").attr("abs:href"));
+        detailAttrs.put("street_address_s", doc.select("div.mapaddress").text());
+        detailAttrs.put("google_maps_link_s", doc.select("p.mapaddress").select("a").attr("abs:href"));
+    }
+
+    private void getPostURL(){
+        detailAttrs.put("page_url_s", doc.select("link[rel=canonical]").attr("abs:href"));
     }
 
     private void parse(){
@@ -161,6 +165,7 @@ public class DetailParser {
         parseBodyText();
         parsePostInfo();
         parseAddress();
+        getPostURL();
     }
 
     public void outputAttributes(){
