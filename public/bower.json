@@ -1,0 +1,20 @@
+{
+  "name": "public",
+  "homepage": "https://github.com/betodt/craigslistHousingSearch",
+  "authors": [
+    "betodt <alberto.diaz.tostado@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ngmap": "^1.17.3"
+  }
+}
