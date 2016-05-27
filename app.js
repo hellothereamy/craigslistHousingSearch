@@ -11,6 +11,10 @@ app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
+app.get('/indexA', function(req, res) {
+	res.send('public/index.html');
+});
+
 //handle log updates
 app.post('/', function(req, res) {
 	fs.appendFile('log.txt', req.body.data + '\n', (err) => {
@@ -20,8 +24,10 @@ app.post('/', function(req, res) {
 	});
 });
 
-app.post('/search', function(req, res) {
-	var obj = JSON.parse(fs.readFileSync('queryHouse.json', 'utf8'));
 
-	res.send(obj);
-});
+//DEV ONLY
+// app.post('/search', function(req, res) {
+// 	var obj = JSON.parse(fs.readFileSync('queryHouse.json', 'utf8'));
+
+// 	res.send(obj);
+// });

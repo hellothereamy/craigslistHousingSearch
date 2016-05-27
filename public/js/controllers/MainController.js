@@ -25,14 +25,19 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		    		console.log("facet is = " + $scope.facetClicked[i]);
 
 		    		if(Object.keys($scope.facetClicked)[i] == "subarea_s" || Object.keys($scope.facetClicked)[i] == "housetype_s"){
-		    			flag = false;
-		    			for( var j=0; j < $scope.facetClicked[Object.keys($scope.facetClicked)[i]].length; j++){
-		    				console.log($scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]);
-		    				if(result[Object.keys($scope.facetClicked)[i]] == $scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]){
-		    					flag = true;
-		    					break;
-		    				}
-		    			}
+			    		if($scope.facetClicked[Object.keys($scope.facetClicked)[i]].length > 0) {
+			    			flag = false;
+			    			for( var j=0; j < $scope.facetClicked[Object.keys($scope.facetClicked)[i]].length; j++){
+			    				console.log($scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]);
+			    				if(result[Object.keys($scope.facetClicked)[i]] == $scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]){
+			    					flag = true;
+			    					break;
+			    				}
+			    			}
+			    			if(!flag) {
+			    				break;
+			    			}
+			    		}
 		    		}
 
 		    		else if (!result[$scope.facetClicked[i]]) {

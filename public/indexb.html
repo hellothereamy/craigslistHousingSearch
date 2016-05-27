@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Web Crawler</title>
+    <title>Bay Area Housing Search</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://emojicss.com/emoji.css" rel="stylesheet">
@@ -58,7 +58,7 @@
               <h3>Housing Types</h3>
               <div class= "col-md-3 col-lg-3">
                 <label><input type="checkbox" id="house" name="housetype_s"> <span  data-toggle="tooltip" data-placement="top" title="House" > <i class="em 
-                em-house"> </i> </span> </label>
+                em-house_with_garden"> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
                 <label><input id="apartment" type="checkbox" name="housetype_s"><span data-toggle="tooltip" data-placement="top" title="Apartment"> <i class="em 
@@ -66,11 +66,11 @@
               </div>
               <div class= "col-md-3 col-lg-3">
                 <label><input id="condo" type="checkbox" name="housetype_s"> <span  data-toggle="tooltip" data-placement="top" title="Condo"> <i class="em 
-                em-house"></i> <i class="em em-alarm_clock"> </i> </span> </label>
+                em-post_office"></i> </i> </span> </label>
               </div>
               <div class= "col-md-3 col-lg-3">
                 <label><input id="townhouse" type="checkbox" name="housetype_s"> <span  data-toggle="tooltip" data-placement="top" title="Townhouse">  <i class="em 
-                em-house"> </i> <i class="em em-palm_tree"> </i></label>
+                em-house"></i><i class="em em-house"></i></label>
               </div>
             </div>
             <hr>
@@ -144,7 +144,7 @@
       </div>
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-          <ng-map center="{{latlng}}" zoom="9">
+          <ng-map center="{{latlng}}" zoom="10">
             <info-window id="marker-info">
               <div class="row">
                   <div class="col-xs-6 col-xs-offset-3">

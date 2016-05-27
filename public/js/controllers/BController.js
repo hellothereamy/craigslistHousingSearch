@@ -4,7 +4,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 	$scope.coords = [];
 	Solstice.search({
 	 q: "*",
-	 rows: 10,
+	 rows: 50,
 	 fl: '*,score'
 	}).then(function (data){
 		console.log(data);
@@ -32,21 +32,21 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		    	// console.log(Object.keys($scope.facetClicked));
 		    	for(var i =0; i<Object.keys($scope.facetClicked).length;i++){
 
-		    		// console.log($scope.facetClicked["housetype_s"]);
-		    		// console.log(result[$scope.facetClicked[i]]);
-		    		// console.log("facet is = " + $scope.facetClicked[i]);
-
 		    		if(Object.keys($scope.facetClicked)[i] == "subarea_s" || Object.keys($scope.facetClicked)[i] == "housetype_s"){
-		    			flag = false;
-		    			for( var j=0; j < $scope.facetClicked[Object.keys($scope.facetClicked)[i]].length; j++){
-		    				// console.log($scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]);
-		    				if(result[Object.keys($scope.facetClicked)[i]] == $scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]){
-		    					flag = true;
-		    					break;
-		    				}
-		    			}
+		    			if($scope.facetClicked[Object.keys($scope.facetClicked)[i]].length > 0) {
+		    				flag = false;
+			    			for( var j=0; j < $scope.facetClicked[Object.keys($scope.facetClicked)[i]].length; j++){
+			    				
+			    				if(result[Object.keys($scope.facetClicked)[i]] == $scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]){
+			    					flag = true;
+			    					break;
+			    				} 
+			    			}
+			    			if(!flag) {
+			    				break;
+			    			}
+			    		} 
 		    		}
-
 		    		else if (!result[$scope.facetClicked[i]]) {
 		    			flag=false;
 		    			break;
@@ -54,6 +54,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		    			flag = true;
 		    		}
 		    	}
+		    	console.log(flag);
 		     	return flag;
 		   });
 	  }
@@ -73,7 +74,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 	window.onload = function(){
 		start = new Date();
 		console.log(start.getTime());
-		alert(start.getTime());
+		// alert(start.getTime());
 		$http.post('/', { data: new Date().toString()+",start,"+start.getTime() }).then(function (success) {
 			console.log(success);
 		}, function(error) {
@@ -104,9 +105,9 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 					}
 					else
 						$scope.facetClicked.push(e.target.name);
-					console.log($scope.facetClicked);
+					// console.log($scope.facetClicked);
 					$scope.facetFilter();
-					console.log("filtered is = " + $scope.filteredResults);
+					console.log($scope.filteredResults);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -128,7 +129,8 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 						console.log($scope.facetClicked);
 					}
 					$scope.facetFilter();
-					console.log("filtered is = " + $scope.filteredResults);
+					console.log("$scope.filteredResults");
+					console.log($scope.filteredResults);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -151,7 +153,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		}).then(function (data){
 		    $scope.results = data.data.response.docs;
 		    $scope.facetFilter();
-		    console.log("filtered is = " + $scope.filteredResults);
+		    console.log($scope.filteredResults);
 		    
 		    console.log(data.data.response.docs);
 		});
@@ -183,7 +185,6 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		});
 		start =0;
 		$scope.count = 0;
-		return(totalTime);
 	};
 
 	$scope.showResult = function(evt, res) { 
