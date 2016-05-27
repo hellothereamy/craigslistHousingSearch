@@ -50,7 +50,6 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 	window.onload = function(){
 		start = new Date();
 		console.log(start.getTime());
-		alert(start.getTime());
 		$http.post('/', { data: new Date().toString()+",start,"+start.getTime() }).then(function (success) {
 			console.log(success);
 		}, function(error) {
@@ -157,7 +156,6 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		});
 		start =0;
 		$scope.count = 0;
-		return(totalTime);
 	};
 });
 
