@@ -1,15 +1,18 @@
 app.controller('myCtrl', function($scope, $http, Solstice) {
 	$scope.results = [];
 	$scope.filteredResults = [];
-
-	$http.post('/search').then(function (data){
+	Solstice.search({
+	 q: "*",
+	 rows: 50,
+	 fl: '*,score'
+	}).then(function (data){
 		console.log(data);
 	    $scope.results = data.data.response.docs;
 	});
 
 	$scope.facetFilter = function() {
 	    console.log($scope.filteredResults);
-		if ($scope.facetClicked["subarea_s"].length <= 0 && Object.keys($scope.facetClicked).length <= 1){
+		if ($scope.facetClicked["subarea_s"].length <= 0 && $scope.facetClicked["housetype_s"].length <= 0 && Object.keys($scope.facetClicked).length <= 2){
 			$scope.filteredResults = $scope.results;
 		} else {
 		    $scope.filteredResults = $scope.results.filter(function(result){
@@ -17,20 +20,21 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		    	console.log(Object.keys($scope.facetClicked));
 		    	for(var i =0; i<Object.keys($scope.facetClicked).length;i++){
 
-		    		console.log($scope.facetClicked["subarea_s"]);
+		    		console.log($scope.facetClicked["housetype_s"]);
 		    		console.log(result[$scope.facetClicked[i]]);
 		    		console.log("facet is = " + $scope.facetClicked[i]);
 
-		    		if(Object.keys($scope.facetClicked)[i] == "subarea_s"){
+		    		if(Object.keys($scope.facetClicked)[i] == "subarea_s" || Object.keys($scope.facetClicked)[i] == "housetype_s"){
 		    			flag = false;
-		    			for( var j=0; j < $scope.facetClicked["subarea_s"].length; j++){
-		    				console.log($scope.facetClicked["subarea_s"][j]);
-		    				if(result["subarea_s"] == $scope.facetClicked["subarea_s"][j]){
+		    			for( var j=0; j < $scope.facetClicked[Object.keys($scope.facetClicked)[i]].length; j++){
+		    				console.log($scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]);
+		    				if(result[Object.keys($scope.facetClicked)[i]] == $scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]){
 		    					flag = true;
 		    					break;
 		    				}
 		    			}
 		    		}
+
 		    		else if (!result[$scope.facetClicked[i]]) {
 		    			flag=false;
 		    			break;
@@ -52,15 +56,12 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		}, function(error) {
 			console.log(error);
 		});
-		// Solstice.search({
-		//     q: currQuery,
-		//     rows: 10,
-		//     fl: '*,score'
 	};
 
 	$scope.count = 0;
 	$scope.facetClicked =[];
 	$scope.facetClicked["subarea_s"]=[];
+	$scope.facetClicked["housetype_s"] = [];
 	$scope.countClick = function(e){
 		$scope.count ++;
 		$http.post('/', { data: new Date().toString()+",click,"+$scope.count }).then(function (success) {
@@ -73,6 +74,9 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 			if(e.target.type == "checkbox"){
 				if(e.target.checked){
 					if(e.target.name === "subarea_s"){
+						$scope.facetClicked[e.target.name].push(e.target.id);
+					}
+					else if (e.target.name === "housetype_s"){
 						$scope.facetClicked[e.target.name].push(e.target.id);
 					}
 					else $scope.facetClicked.push(e.target.name);
@@ -88,6 +92,10 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 					if (e.target.name =="subarea_s"){
 						var index = $scope.facetClicked["subarea_s"].indexOf(e.target.id);
 						$scope.facetClicked["subarea_s"].splice(index,1);
+					}
+					else if (e.target.name =="housetype_s"){
+						var index = $scope.facetClicked["housetype_s"].indexOf(e.target.id);
+						$scope.facetClicked["housetype_s"].splice(index,1);
 					}
 					else{
 						var index = $scope.facetClicked.indexOf(e.target.name);
@@ -110,11 +118,11 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 	$scope.handleQuery = function(){
 		var currQuery = document.getElementById("query").value;
 		console.log(currQuery);
-		// Solstice.search({
-		//     q: currQuery,
-		//     rows: 10,
-		//     fl: '*,score'
-		$http.post('/search').then(function (data){
+		 Solstice.search({
+		    q: currQuery,
+		    rows: 10,
+		    fl: '*,score'
+		  }).then(function (data){
 		    $scope.results = data.data.response.docs;
 		    $scope.facetFilter();
 		    console.log($scope.filteredResults);
