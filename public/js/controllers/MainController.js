@@ -12,6 +12,7 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 	};
 	$scope.count = 0;
 	$scope.facetClicked =[];
+	$scope.facetClicked["subarea_s"]=[];
 	$scope.countClick = function(e){
 		$scope.count ++;
 		$http.post('/', { data: new Date().toString()+",click,"+$scope.count }).then(function (success) {
@@ -20,11 +21,15 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 			console.log(error);
 		});
 		console.log($scope.count);
-		console.log(e.target.type);
+		console.log(e.target);
 		if(e.target.tagName == "INPUT"){
 			if(e.target.type == "checkbox"){
 				if(e.target.checked){
-					$scope.facetClicked.push(e.target.name);
+					if(e.target.name === "subarea_s"){
+						$scope.facetClicked[e.target.name].push(e.target.id);
+					}
+					else $scope.facetClicked.push(e.target.name);
+
 					console.log($scope.facetClicked);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
@@ -33,9 +38,15 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 					});
 				}
 				else{
-					var index = $scope.facetClicked.indexOf(e.target.name);
-					$scope.facetClicked.splice(index,1);
-					console.log($scope.facetClicked);
+					if (e.target.name =="subarea_s"){
+						var index = $scope.facetClicked["subarea_s"].indexOf(e.target.id);
+						$scope.facetClicked["subarea_s"].splice(index,1);
+					}
+					else{
+						var index = $scope.facetClicked.indexOf(e.target.name);
+						$scope.facetClicked.splice(index,1);
+						console.log($scope.facetClicked);
+					}
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -59,8 +70,17 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		    $scope.results = data.data.response.docs;
 		    $scope.filteredResults = $scope.results.filter(function(result){
 		    	for(var i =0; i<$scope.facetClicked.length;i++){
-		    		if(result.$scope.facetClicked[i]) {
-		    			
+		    		if(result.$scope.facetClicked[i] == "subarea_s"){
+		    			for( var j=0; j < $scope.facetClicked[i].length; j++){
+		    				if(result.$scope.facetClicked[i] == $scope.facetClicked[j]){
+		    					
+		    				}
+		    			}
+		    		}
+		    		else (result.$scope.facetClicked[i] == result) {
+		    			if(result.$scope.facetClicked[i] == false){
+		    				break;
+		    			}
 		    		}
 		    	}
 		    });
