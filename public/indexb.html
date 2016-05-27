@@ -153,7 +153,7 @@
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
           <ng-map center="{{latlng}}" zoom="9">
-            <div ng-repeat="coord in coords">
+            <div ng-repeat="coord in coords track by $index">
               <marker position="{{coord}}" on-click=""></marker>
             </div>
           </ng-map>

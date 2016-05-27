@@ -77,8 +77,9 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		    });
 		    $scope.coords = [];
 		    $scope.results.forEach(function(result) {
-		    	GeoCoder.geocode({address:result.street_address_s + ","+result.subarea_s}).then(function(data) {
+		    	GeoCoder.geocode({address:result.street_address_s +result.neighborhood_s+",CA"}).then(function(data) {
 		    		$scope.coords.push(data[0].geometry.location.lat() + "," + data[0].geometry.location.lng());
+		    		console.log(data);
 		    	});
 		    });
 		    console.log($scope.coords);
