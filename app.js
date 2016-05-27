@@ -19,3 +19,9 @@ app.post('/', function(req, res) {
 	  res.send(req.body.data);
 	});
 });
+
+app.post('/search', function(req, res) {
+	var obj = JSON.parse(fs.readFileSync('queryHouse.json', 'utf8'));
+
+	res.send(obj);
+});

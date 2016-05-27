@@ -1,5 +1,16 @@
-app.controller('myCtrl', function($scope, $http, Solstice) {
+appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolocation, GeoCoder) {
 	$scope.results = [];
+	$scope.latlng = "0,0";
+	$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAy2m_H-odemZ5FYX6GXyYXpnacj7s7X4U";
+	NgMap.getMap().then(function(map) {
+	    console.log(map.getCenter());
+	    console.log('markers', map.markers);
+	    console.log('shapes', map.shapes);
+	});
+	NavigatorGeolocation.getCurrentPosition().then(function(position) {
+    	$scope.latlng = position.coords.latitude + "," + position.coords.longitude;
+    	console.log($scope.latlng);
+	});
 	window.onload = function(){
 		start = new Date();
 		console.log(start.getTime());
@@ -12,7 +23,6 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 	};
 	$scope.count = 0;
 	$scope.facetClicked =[];
-	$scope.facetClicked["subarea_s"]=[];
 	$scope.countClick = function(e){
 		$scope.count ++;
 		$http.post('/', { data: new Date().toString()+",click,"+$scope.count }).then(function (success) {
@@ -21,15 +31,11 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 			console.log(error);
 		});
 		console.log($scope.count);
-		console.log(e.target);
+		console.log(e.target.type);
 		if(e.target.tagName == "INPUT"){
 			if(e.target.type == "checkbox"){
 				if(e.target.checked){
-					if(e.target.name === "subarea_s"){
-						$scope.facetClicked[e.target.name].push(e.target.id);
-					}
-					else $scope.facetClicked.push(e.target.name);
-
+					$scope.facetClicked.push(e.target.name);
 					console.log($scope.facetClicked);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
@@ -38,15 +44,9 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 					});
 				}
 				else{
-					if (e.target.name =="subarea_s"){
-						var index = $scope.facetClicked["subarea_s"].indexOf(e.target.id);
-						$scope.facetClicked["subarea_s"].splice(index,1);
-					}
-					else{
-						var index = $scope.facetClicked.indexOf(e.target.name);
-						$scope.facetClicked.splice(index,1);
-						console.log($scope.facetClicked);
-					}
+					var index = $scope.facetClicked.indexOf(e.target.name);
+					$scope.facetClicked.splice(index,1);
+					console.log($scope.facetClicked);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -69,24 +69,23 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		$http.post('/search').then(function (data){
 		    $scope.results = data.data.response.docs;
 		    $scope.filteredResults = $scope.results.filter(function(result){
-		    	for(var i =0; i<$scope.facetClicked.length;i++){
-		    		if(result.$scope.facetClicked[i] == "subarea_s"){
-		    			for( var j=0; j < $scope.facetClicked[i].length; j++){
-		    				if(result.$scope.facetClicked[i] == $scope.facetClicked[j]){
-		    					
-		    				}
-		    			}
-		    		}
-		    		else (result.$scope.facetClicked[i] == result) {
-		    			if(result.$scope.facetClicked[i] == false){
-		    				break;
-		    			}
+		    	for(var i = 0; i<$scope.facetClicked.length; i++){
+		    		if(result.$scope.facetClicked[i]) {
+		    			
 		    		}
 		    	}
 		    });
-
+		    $scope.coords = [];
+		    $scope.results.forEach(function(result) {
+		    	GeoCoder.geocode({address:result.street_address_s + ","+result.subarea_s}).then(function(data) {
+		    		$scope.coords.push(data[0].geometry.location.lat() + "," + data[0].geometry.location.lng());
+		    	});
+		    });
+		    console.log($scope.coords);
 		    console.log(data.data.response.docs);
 		});
+		
+
 
 		$scope.queries.push(currQuery);
 		$http.post('/', { data: new Date().toString()+",query,"+currQuery }).then(function (success) {
@@ -103,7 +102,6 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		});
 		console.log("query count: "+$scope.queryCount);
 	};
-	
 	window.onbeforeunload= function(event){
 		end = new Date();
 		totalTime = ( end.getTime()-start.getTime() );
