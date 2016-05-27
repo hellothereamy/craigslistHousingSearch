@@ -1,7 +1,7 @@
 var app = angular.module("myApp", ['solstice']);
 
 app.config(function(SolsticeProvider) {
-	var ip = "67.180.227.211";
+	var ip = "52.40.153.249";
 	console.log(ip);
   	SolsticeProvider.setEndpoint('http://'+ ip + ':8983/solr/searchEngineCollection');
 });
