@@ -1,5 +1,48 @@
 app.controller('myCtrl', function($scope, $http, Solstice) {
 	$scope.results = [];
+	$scope.filteredResults = [];
+
+	$http.post('/search').then(function (data){
+		console.log(data);
+	    $scope.results = data.data.response.docs;
+	});
+
+	$scope.facetFilter = function() {
+	    console.log($scope.filteredResults);
+		if ($scope.facetClicked["subarea_s"].length <= 0 && Object.keys($scope.facetClicked).length <= 1){
+			$scope.filteredResults = $scope.results;
+		} else {
+		    $scope.filteredResults = $scope.results.filter(function(result){
+		    	var flag = true;
+		    	console.log(Object.keys($scope.facetClicked));
+		    	for(var i =0; i<Object.keys($scope.facetClicked).length;i++){
+
+		    		console.log($scope.facetClicked["subarea_s"]);
+		    		console.log(result[$scope.facetClicked[i]]);
+		    		console.log("facet is = " + $scope.facetClicked[i]);
+
+		    		if(Object.keys($scope.facetClicked)[i] == "subarea_s"){
+		    			flag = false;
+		    			for( var j=0; j < $scope.facetClicked["subarea_s"].length; j++){
+		    				console.log($scope.facetClicked["subarea_s"][j]);
+		    				if(result["subarea_s"] == $scope.facetClicked["subarea_s"][j]){
+		    					flag = true;
+		    					break;
+		    				}
+		    			}
+		    		}
+		    		else if (!result[$scope.facetClicked[i]]) {
+		    			flag=false;
+		    			break;
+		    		} else {
+		    			flag = true;
+		    		}
+		    	}
+		     	return flag;
+		   });
+	  }
+	};
+
 	window.onload = function(){
 		start = new Date();
 		console.log(start.getTime());
@@ -9,7 +52,12 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		}, function(error) {
 			console.log(error);
 		});
+		// Solstice.search({
+		//     q: currQuery,
+		//     rows: 10,
+		//     fl: '*,score'
 	};
+
 	$scope.count = 0;
 	$scope.facetClicked =[];
 	$scope.facetClicked["subarea_s"]=[];
@@ -20,8 +68,7 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		}, function(error) {
 			console.log(error);
 		});
-		console.log($scope.count);
-		console.log(e.target);
+		
 		if(e.target.tagName == "INPUT"){
 			if(e.target.type == "checkbox"){
 				if(e.target.checked){
@@ -29,7 +76,7 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 						$scope.facetClicked[e.target.name].push(e.target.id);
 					}
 					else $scope.facetClicked.push(e.target.name);
-
+					$scope.facetFilter();
 					console.log($scope.facetClicked);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
@@ -47,6 +94,7 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 						$scope.facetClicked.splice(index,1);
 						console.log($scope.facetClicked);
 					}
+					$scope.facetFilter();
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -68,24 +116,9 @@ app.controller('myCtrl', function($scope, $http, Solstice) {
 		//     fl: '*,score'
 		$http.post('/search').then(function (data){
 		    $scope.results = data.data.response.docs;
-		    $scope.filteredResults = $scope.results.filter(function(result){
-		    	for(var i =0; i<$scope.facetClicked.length;i++){
-		    		if(result.$scope.facetClicked[i] == "subarea_s"){
-		    			for( var j=0; j < $scope.facetClicked[i].length; j++){
-		    				if(result.$scope.facetClicked[i] == $scope.facetClicked[j]){
-		    					
-		    				}
-		    			}
-		    		}
-		    		else (result.$scope.facetClicked[i] == result) {
-		    			if(result.$scope.facetClicked[i] == false){
-		    				break;
-		    			}
-		    		}
-		    	}
-		    });
-
-		    console.log(data.data.response.docs);
+		    $scope.facetFilter();
+		    console.log($scope.filteredResults);
+		    // console.log(data.data.response.docs);
 		});
 
 		$scope.queries.push(currQuery);
