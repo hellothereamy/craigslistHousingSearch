@@ -3,7 +3,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 	$scope.filteredResults = [];
 	Solstice.search({
 	 q: "*",
-	 rows: 50,
+	 rows: 10,
 	 fl: '*,score'
 	}).then(function (data){
 		console.log(data);
@@ -131,7 +131,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		console.log(currQuery);
 		Solstice.search({
 		    q: currQuery,
-		    rows: 50,
+		    rows: 10,
 		    fl: '*,score'
 		}).then(function (data){
 		    $scope.results = data.data.response.docs;
@@ -139,11 +139,15 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		    $scope.coords = [];
 		    $scope.filteredResults.forEach(function(result) {
 		    	GeoCoder.geocode({address:result.street_address_s +result.neighborhood_s+",CA"}).then(function(data) {
-		    		$scope.coords.push(data[0].geometry.location.lat() + "," + data[0].geometry.location.lng());
-		    		console.log(data);
+		    		$scope.coords.push({
+		    			lat: data[0].geometry.location.lat(),
+		    			lng: data[0].geometry.location.lng(),
+		    			result: result
+		    		});
+		    		console.log($scope.coords.length);
 		    	});
 		    });
-		    console.log($scope.coords);
+		    console.log($scope.coords.length);
 		    console.log(data.data.response.docs);
 		});
 		
@@ -175,6 +179,11 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		start =0;
 		$scope.count = 0;
 		return(totalTime);
+	};
+
+	$scope.showResult = function(evt, res) { 
+		$scope.selectedResult = res;
+		$scope.map.showInfoWindow('marker-info', this);
 	};
 });
 

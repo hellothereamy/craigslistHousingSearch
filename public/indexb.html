@@ -153,8 +153,24 @@
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
           <ng-map center="{{latlng}}" zoom="9">
+            <info-window id="marker-info">
+              <div class="row">
+                  <div class="col-xs-6 col-xs-offset-3">
+                      <img ng-src="{{ selectedResult.image_src_s }}">
+                  </div>
+                  <div class="col-xs-8 col-xs-offset-2">
+                      <a href="{{ selectedResult.page_url_s }}" target="_blank">{{ selectedResult.title_s }}</a>
+                      <br>
+                      <span>{{ selectedResult.price_s }}</span> <span>{{ selectedResult.bedroom_s }}BR / {{ selectedResult.bathroom_s }}Ba</span> <span>{{ selectedResult.sqFt_s }} sq ft</span>
+                      <br>
+                      <span>{{ selectedResult.neighborhood_s }}</span>
+                      <br>
+                      <span>{{ selectedResult.available_s }}</span>
+                  </div>
+              </div>
+            </info-window>
             <div ng-repeat="coord in coords track by $index">
-              <marker position="{{coord}}" on-click=""></marker>
+              <marker position="{{coord.lat+','+coord.lng}}" on-click="showResult(event, coord.result);"></marker>
             </div>
           </ng-map>
         </div>
