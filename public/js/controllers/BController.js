@@ -1,6 +1,7 @@
 appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolocation, GeoCoder) {
 	$scope.results = [];
 	$scope.filteredResults = [];
+	$scope.coords = [];
 	Solstice.search({
 	 q: "*",
 	 rows: 10,
@@ -22,23 +23,23 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
     	console.log($scope.latlng);
 	});
 	$scope.facetFilter = function() {
-	    console.log($scope.filteredResults);
+	    // console.log($scope.facetClicked);
 		if ($scope.facetClicked["subarea_s"].length <= 0 && $scope.facetClicked["housetype_s"].length <= 0 && Object.keys($scope.facetClicked).length <= 2){
 			$scope.filteredResults = $scope.results;
 		} else {
 		    $scope.filteredResults = $scope.results.filter(function(result){
 		    	var flag = true;
-		    	console.log(Object.keys($scope.facetClicked));
+		    	// console.log(Object.keys($scope.facetClicked));
 		    	for(var i =0; i<Object.keys($scope.facetClicked).length;i++){
 
-		    		console.log($scope.facetClicked["housetype_s"]);
-		    		console.log(result[$scope.facetClicked[i]]);
-		    		console.log("facet is = " + $scope.facetClicked[i]);
+		    		// console.log($scope.facetClicked["housetype_s"]);
+		    		// console.log(result[$scope.facetClicked[i]]);
+		    		// console.log("facet is = " + $scope.facetClicked[i]);
 
 		    		if(Object.keys($scope.facetClicked)[i] == "subarea_s" || Object.keys($scope.facetClicked)[i] == "housetype_s"){
 		    			flag = false;
 		    			for( var j=0; j < $scope.facetClicked[Object.keys($scope.facetClicked)[i]].length; j++){
-		    				console.log($scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]);
+		    				// console.log($scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]);
 		    				if(result[Object.keys($scope.facetClicked)[i]] == $scope.facetClicked[Object.keys($scope.facetClicked)[i]][j]){
 		    					flag = true;
 		    					break;
@@ -56,6 +57,18 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		     	return flag;
 		   });
 	  }
+
+	  $scope.coords = [];
+	  $scope.filteredResults.forEach(function(result) {
+	  	GeoCoder.geocode({address:result.street_address_s +result.neighborhood_s+",CA"}).then(function(data) {
+	  		$scope.coords.push({
+	  			  			lat: data[0].geometry.location.lat(),
+	  			  			lng: data[0].geometry.location.lng(),
+	  			  			result: result
+	  			  		});
+	  	});
+	  });
+	  console.log($scope.coords);
 	};
 	window.onload = function(){
 		start = new Date();
@@ -93,6 +106,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 						$scope.facetClicked.push(e.target.name);
 					console.log($scope.facetClicked);
 					$scope.facetFilter();
+					console.log("filtered is = " + $scope.filteredResults);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -114,6 +128,7 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 						console.log($scope.facetClicked);
 					}
 					$scope.facetFilter();
+					console.log("filtered is = " + $scope.filteredResults);
 					$http.post('/', { data: new Date().toString()+",facet,"+$scope.facetClicked }).then(function (success) {
 						console.log(success);
 					}, function(error) {
@@ -136,18 +151,8 @@ appB.controller('bCtrl', function($scope, $http, Solstice, NgMap, NavigatorGeolo
 		}).then(function (data){
 		    $scope.results = data.data.response.docs;
 		    $scope.facetFilter();
-		    $scope.coords = [];
-		    $scope.filteredResults.forEach(function(result) {
-		    	GeoCoder.geocode({address:result.street_address_s +result.neighborhood_s+",CA"}).then(function(data) {
-		    		$scope.coords.push({
-		    			lat: data[0].geometry.location.lat(),
-		    			lng: data[0].geometry.location.lng(),
-		    			result: result
-		    		});
-		    		console.log($scope.coords.length);
-		    	});
-		    });
-		    console.log($scope.coords.length);
+		    console.log("filtered is = " + $scope.filteredResults);
+		    
 		    console.log(data.data.response.docs);
 		});
 		
