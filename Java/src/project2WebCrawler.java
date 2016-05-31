@@ -50,9 +50,9 @@ public class project2WebCrawler {
 	
 	private void crawlSites() {
 		Pattern pattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/[a-z]{3}\\/[a-z]{3}\\/\\d*\\.html$"),
-				searchPattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/search\\/[a-z]{3}(\\?s=\\d{3})?$");
+				searchPattern = Pattern.compile("https:\\/\\/sfbay\\.craigslist\\.org\\/search\\/[a-z]{3}(\\?s=\\d{3,4})?$");
 		Matcher matcher, searchMatcher;
-		while(!sitesToCrawl.isEmpty() && crawlCounter < maxCrawls) {			
+		while(!sitesToCrawl.isEmpty()){ //&& crawlCounter < maxCrawls) {
 			webUrl = sitesToCrawl.element();
 			sitesToCrawl.remove();
 			
@@ -158,7 +158,7 @@ public class project2WebCrawler {
 			
 			// Sleep for politeness
 			try {
-				Thread.sleep(600);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
